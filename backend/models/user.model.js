@@ -12,6 +12,14 @@ const User = mongoose.model(
         ref: "Role",
       },
     ],
+    giftCards: [
+      {
+        barcode: String,
+        amount: Number,
+        createdAt: Date,
+        updatedAt: Date,
+      },
+    ],
   })
 );
 
