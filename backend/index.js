@@ -30,7 +30,6 @@ app.listen(PORT, () => {
 });
 
 const db = require("./models");
-const { mongo } = require("mongoose");
 const Role = db.role;
 
 db.mongoose
