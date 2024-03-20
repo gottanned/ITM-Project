@@ -1,22 +1,22 @@
 import logo from "./logo.svg";
 import "./App.css";
+import React, { useEffect, useState } from "react";
+import LoginForm from "./component/login/loginForm.jsx";
 
 function App() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8080/")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.message);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Testing</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn
-        </a>
-      </header>
-    </div>
+    <section className="w-full h-full bg-gray-800 flex flex-col items-center">
+      <LoginForm />
+    </section>
   );
 }
 
