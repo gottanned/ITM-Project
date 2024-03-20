@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoURI = require("/Users/tantruong/Desktop/GiftCardApp/ITM-Project/utils/constants.jsx");
+
 const uri = mongoURI.mongoURI;
 
 var corsOptions = {
@@ -29,6 +30,7 @@ app.listen(PORT, () => {
 });
 
 const db = require("./models");
+const { mongo } = require("mongoose");
 const Role = db.role;
 
 db.mongoose
