@@ -1,6 +1,6 @@
-const express = require("express");
-const serverless = require("serverless-http");
-const controller = require("../../backend/controllers/user.controller");
+import express from "express";
+import serverless from "serverless-http";
+import controller from "../../backend/controllers/user.controller";
 
 const app = express();
 const router = express.Router();
