@@ -2,7 +2,7 @@ const db = require("../models");
 const User = db.user;
 
 exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
+  res.status(200).send("Public Content. testing 2");
 };
 exports.userBoard = (req, res) => {
   User.findById(req.userId).exec((err, user) => {

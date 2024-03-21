@@ -4,7 +4,7 @@ require("./loginForm.css");
 const LoginForm = () => {
   return (
     <section
-      className=" background-radial-gradient overflow-hidden"
+      className="background-radial-gradient overflow-hidden"
       style={{ height: "100vh" }}
     >
       <div className="container px-5 py-5 px-md-5 text-center text-lg-start my-5">

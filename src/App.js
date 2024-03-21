@@ -6,15 +6,17 @@ import LoginForm from "./component/login/loginForm.jsx";
 function App() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8080/")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.message);
+    fetch("/.netlify/functions/api/").then((res) => {
+      res.text().then((data) => {
+        setData(data);
       });
+    });
+    console.log(data);
   }, []);
 
   return (
     <section className="w-full h-full bg-gray-800 flex flex-col items-center">
+      <div>{data}</div>
       <LoginForm />
     </section>
   );
