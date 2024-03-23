@@ -1,7 +1,29 @@
+import React, { useState } from "react";
 const cookies = require("js-cookie");
 require("./loginForm.css");
 
 const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("/.netlify/functions/api/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.accessToken) {
+      cookies.set("accessToken", data.accessToken);
+      console.log(cookies.get("accessToken"));
+      //window.location.href = "/temp";
+    }
+  };
+
   return (
     <section
       className="background-radial-gradient overflow-hidden"
@@ -43,25 +65,27 @@ const LoginForm = () => {
 
             <div className="card bg-glass">
               <div className="card-body px-4 py-5 px-md-5">
-                <form>
+                <form onSubmit={handleOnSubmit}>
                   <div className="form-outline mb-4">
                     <input
-                      type="email"
-                      id="form3Example3"
+                      type="username"
+                      id="username"
                       className="form-control"
+                      onChange={(e) => setUsername(e.target.value)}
                     />
-                    <label className="form-label" for="form3Example3">
-                      Email address
+                    <label className="form-label" for="username">
+                      Username
                     </label>
                   </div>
 
                   <div className="form-outline mb-4">
                     <input
                       type="password"
-                      id="form3Example4"
+                      id="password"
                       className="form-control"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
-                    <label className="form-label" for="form3Example4">
+                    <label className="form-label" for="password">
                       Password
                     </label>
                   </div>
@@ -70,6 +94,7 @@ const LoginForm = () => {
                     type="submit"
                     className="btn btn-primary btn-block mb-4"
                     style={{ width: "100%" }}
+                    handleOnSubmit={handleOnSubmit}
                   >
                     Sign in
                   </button>

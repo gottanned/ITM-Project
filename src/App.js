@@ -6,7 +6,7 @@ import LoginForm from "./component/login/loginForm.jsx";
 function App() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("/.netlify/functions/api/").then((res) => {
+    fetch("/.netlify/functions/api").then((res) => {
       res.text().then((data) => {
         setData(data);
       });
