@@ -20,7 +20,7 @@ const LoginForm = () => {
     if (data.accessToken) {
       cookies.set("accessToken", data.accessToken);
       console.log(cookies.get("accessToken"));
-      //window.location.href = "/temp";
+      window.location.href = "/temp";
     }
   };
 
