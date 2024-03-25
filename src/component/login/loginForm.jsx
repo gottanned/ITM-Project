@@ -29,7 +29,7 @@ const LoginForm = () => {
       className="background-radial-gradient overflow-hidden"
       style={{ height: "100vh" }}
     >
-      <div className="container px-5 py-5 px-md-5 text-center text-lg-start my-5">
+      <div className=" px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 align-items-center mb-5">
           <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
             <h1
@@ -65,7 +65,12 @@ const LoginForm = () => {
 
             <div className="card bg-glass">
               <div className="card-body px-4 py-5 px-md-5">
-                <form onSubmit={handleOnSubmit}>
+                <form id="loginForm" onSubmit={handleOnSubmit}>
+                  <div className="form-outline mb-4">
+                    <label className="display-5 fw-bold" for="loginForm">
+                      Sign In
+                    </label>
+                  </div>
                   <div className="form-outline mb-4">
                     <input
                       type="username"
@@ -88,6 +93,15 @@ const LoginForm = () => {
                     <label className="form-label" for="password">
                       Password
                     </label>
+                  </div>
+
+                  <div className="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                      Not a member? <a href="/signup">Sign up</a>
+                    </div>
+                    <div>
+                      <a href="/forgot-password">Forgot password?</a>
+                    </div>
                   </div>
 
                   <button

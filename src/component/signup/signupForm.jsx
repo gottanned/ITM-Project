@@ -1,12 +1,41 @@
-const cookies = require("js-cookie");
-require("./loginForm.css");
+import React, { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+require("./signupForm.css");
 
-const LoginForm = () => {
+const SignupForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("/.netlify/functions/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.message === "User was registered successfully!") {
+      toast.success("User was registered successfully!");
+      window.location.href = "/";
+    } else {
+      toast.error(data.message);
+    }
+  };
+
   return (
     <section
-      className=" background-radial-gradient overflow-hidden"
+      className=" background-radial-gradient-signup overflow-hidden"
       style={{ height: "100vh" }}
     >
+      <Toaster />
       <div className="px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 align-items-center mb-5">
           <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
@@ -33,42 +62,33 @@ const LoginForm = () => {
 
           <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
             <div
-              id="radius-shape-1"
+              id="radius-shape-1-signup"
               className="position-absolute rounded-circle shadow-5-strong"
             ></div>
             <div
-              id="radius-shape-2"
+              id="radius-shape-2-signup"
               className="position-absolute shadow-5-strong"
             ></div>
 
             <div className="card bg-glass">
               <div className="card-body px-4 py-5 px-md-5">
-                <form>
-                  <div className="row">
-                    <div className="col-md-6 mb-4">
-                      <div className="form-outline">
-                        <input
-                          type="text"
-                          id="form3Example1"
-                          className="form-control"
-                        />
-                        <label className="form-label" for="form3Example1">
-                          First name
-                        </label>
-                      </div>
-                    </div>
-                    <div className="col-md-6 mb-4">
-                      <div className="form-outline">
-                        <input
-                          type="text"
-                          id="form3Example2"
-                          className="form-control"
-                        />
-                        <label className="form-label" for="form3Example2">
-                          Last name
-                        </label>
-                      </div>
-                    </div>
+                <form id="signupForm" onSubmit={handleOnSubmit}>
+                  <div className="form-outline mb-4">
+                    <label className="display-5 fw-bold" for="signupForm">
+                      Sign Up
+                    </label>
+                  </div>
+
+                  <div className="form-outline mb-4">
+                    <input
+                      type="username"
+                      id="username"
+                      className="form-control"
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <label className="form-label" for="username">
+                      Username
+                    </label>
                   </div>
 
                   <div className="form-outline mb-4">
@@ -76,6 +96,7 @@ const LoginForm = () => {
                       type="email"
                       id="form3Example3"
                       className="form-control"
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <label className="form-label" for="form3Example3">
                       Email address
@@ -87,23 +108,18 @@ const LoginForm = () => {
                       type="password"
                       id="form3Example4"
                       className="form-control"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <label className="form-label" for="form3Example4">
                       Password
                     </label>
                   </div>
+                  <div className="form-outline mb-4" id="alertMessege" />
 
-                  <div className="form-check d-flex justify-content-center mb-4">
-                    <input
-                      className="form-check-input me-2"
-                      type="checkbox"
-                      value=""
-                      id="form2Example33"
-                      checked
-                    />
-                    <label className="form-check-label" for="form2Example33">
-                      Subscribe to our newsletter
-                    </label>
+                  <div className="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                      Already a member? <a href="/">Sign In</a>
+                    </div>
                   </div>
 
                   <button
@@ -111,7 +127,7 @@ const LoginForm = () => {
                     className="btn btn-primary btn-block mb-4"
                     style={{ width: "100%" }}
                   >
-                    Sign in
+                    Sign Up
                   </button>
                 </form>
               </div>
@@ -123,4 +139,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;
