@@ -35,7 +35,6 @@ const SignupForm = () => {
       className=" background-radial-gradient-signup overflow-hidden"
       style={{ height: "100vh" }}
     >
-      <Toaster />
       <div className="px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 align-items-center mb-5">
           <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
@@ -71,6 +70,7 @@ const SignupForm = () => {
             ></div>
 
             <div className="card bg-glass">
+              <Toaster />
               <div className="card-body px-4 py-5 px-md-5">
                 <form id="signupForm" onSubmit={handleOnSubmit}>
                   <div className="form-outline mb-4">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 const cookies = require("js-cookie");
 require("./loginForm.css");
 
@@ -19,8 +20,10 @@ const LoginForm = () => {
     console.log(data);
     if (data.accessToken) {
       cookies.set("accessToken", data.accessToken);
-      console.log(cookies.get("accessToken"));
+      toast.success("User was logged in successfully!");
       window.location.href = "/temp";
+    } else {
+      toast.error(data.message);
     }
   };
 
@@ -64,6 +67,7 @@ const LoginForm = () => {
             ></div>
 
             <div className="card bg-glass">
+              <Toaster />
               <div className="card-body px-4 py-5 px-md-5">
                 <form id="loginForm" onSubmit={handleOnSubmit}>
                   <div className="form-outline mb-4">
