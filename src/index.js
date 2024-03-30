@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.js";
-import Temp from "./component/temp/temp.jsx";
+import Dashboard from "./page/dashboard/dashboard.jsx";
 import SignUp from "./page/signup/signup.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import "bootstrap/dist/js/bootstrap.js";
@@ -15,7 +15,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/temp" element={<Temp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>

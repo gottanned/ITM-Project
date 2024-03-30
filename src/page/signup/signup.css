@@ -1,0 +1,21 @@
+.background-radial-gradient-signup {
+  width: 100vw;
+  height: 100vh;
+  display: fixed;
+  justify-content: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: hsla(170, 80%, 10%, 0.711);
+  background-image: radial-gradient(650px circle at 0% 0%,
+      hsl(181, 86%, 27%) 15%,
+      hsl(181, 41%, 30%) 35%,
+      hsl(181, 41%, 20%) 75%,
+      hsl(181, 41%, 19%) 80%,
+      transparent 100%),
+    radial-gradient(1250px circle at 100% 100%,
+      hsl(181, 41%, 45%) 15%,
+      hsl(181, 41%, 30%) 35%,
+      hsl(181, 41%, 20%) 75%,
+      hsl(181, 41%, 19%) 80%,
+      transparent 100%);
+    }

@@ -21,17 +21,14 @@ const LoginForm = () => {
     if (data.accessToken) {
       cookies.set("accessToken", data.accessToken);
       toast.success("User was logged in successfully!");
-      window.location.href = "/temp";
+      window.location.href = "/dashboard";
     } else {
       toast.error(data.message);
     }
   };
 
   return (
-    <section
-      className="background-radial-gradient overflow-hidden"
-      style={{ height: "100vh" }}
-    >
+    <section className="w-full h-full">
       <div className=" px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 align-items-center mb-5">
           <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
@@ -54,6 +51,14 @@ const LoginForm = () => {
               you for using our platform and your data will always be safe with
               us.
             </p>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Launch demo modal
+            </button>
           </div>
 
           <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
@@ -110,11 +115,11 @@ const LoginForm = () => {
 
                   <button
                     type="submit"
-                    className="btn btn-primary btn-block mb-4"
+                    className="btn btn-primary bg-transparent text-dark btn-block mb-4"
                     style={{ width: "100%" }}
                     handleOnSubmit={handleOnSubmit}
                   >
-                    Sign in
+                    Sign In
                   </button>
                 </form>
               </div>

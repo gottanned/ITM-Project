@@ -1,0 +1,58 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: hsl(297, 64%, 22%);
+  background-image: radial-gradient(650px circle at 0% 0%,
+      hsl(297, 41%, 35%) 15%,
+      hsl(297, 41%, 30%) 35%,
+      hsl(297, 41%, 20%) 75%,
+      hsl(297, 41%, 19%) 80%,
+      transparent 100%),
+    radial-gradient(1250px circle at 100% 100%,
+      hsl(297, 41%, 45%) 15%,
+      hsl(297, 41%, 30%) 35%,
+      hsl(297, 41%, 20%) 75%,
+      hsl(297, 41%, 19%) 80%,
+      transparent 100%);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.background-radial-gradient-dashboard {
+
+    width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+    background-color: hsl(194, 90%, 30%);
+    background-image: radial-gradient(650px circle at 0% 0%,
+        hsl(181, 41%, 35%) 15%,
+        hsl(181, 41%, 30%) 35%,
+        hsl(181, 41%, 20%) 75%,
+        hsl(181, 41%, 19%) 80%,
+        transparent 100%),
+      radial-gradient(1250px circle at 100% 100%,
+        hsl(181, 41%, 45%) 15%,
+        hsl(181, 41%, 30%) 35%,
+        hsl(181, 41%, 20%) 75%,
+        hsl(181, 41%, 19%) 80%,
+        transparent 100%);
+  }
+
+
+  .panel-command:hover {
+    transform: scale(1.1);
+  }
+  .panel-command {
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.3s;
+  }

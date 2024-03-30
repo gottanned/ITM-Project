@@ -31,10 +31,7 @@ const SignupForm = () => {
   };
 
   return (
-    <section
-      className=" background-radial-gradient-signup overflow-hidden"
-      style={{ height: "100vh" }}
-    >
+    <section>
       <div className="px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 align-items-center mb-5">
           <div className="col-lg-6 mb-5 mb-lg-0" style={{ zIndex: 10 }}>
@@ -124,7 +121,7 @@ const SignupForm = () => {
 
                   <button
                     type="submit"
-                    className="btn btn-primary btn-block mb-4"
+                    className="btn btn-success bg-transparent text-dark btn-block mb-4"
                     style={{ width: "100%" }}
                   >
                     Sign Up

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./index.css";
 import React, { useEffect, useState } from "react";
 import LoginForm from "./component/login/loginForm.jsx";
 
@@ -10,10 +10,9 @@ function App() {
       .then((data) => setData(data));
   }, []);
   return (
-    <section className="w-full h-full bg-gray-800 flex flex-col items-center">
-      <div className="text-2xl">{data.message}</div>
+    <div className="w-full h-full bg-gray-800 background-radial-gradient flex flex-col items-center">
       <LoginForm />
-    </section>
+    </div>
   );
 }
 

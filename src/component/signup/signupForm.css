@@ -1,18 +1,3 @@
-.background-radial-gradient-signup {
-    background-color: hsl(297, 64%, 22%);
-    background-image: radial-gradient(650px circle at 0% 0%,
-        hsl(297, 41%, 35%) 15%,
-        hsl(297, 41%, 30%) 35%,
-        hsl(297, 41%, 20%) 75%,
-        hsl(297, 41%, 19%) 80%,
-        transparent 100%),
-      radial-gradient(1250px circle at 100% 100%,
-        hsl(297, 41%, 45%) 15%,
-        hsl(297, 41%, 30%) 35%,
-        hsl(297, 41%, 20%) 75%,
-        hsl(297, 41%, 19%) 80%,
-        transparent 100%);
-  }
 
   #radius-shape-1-signup {
     height: 220px;
