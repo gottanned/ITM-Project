@@ -2,3 +2,10 @@
     border-radius: 2rem !important;
     background: hsl(218, 41%, 15%) !important;
 }
+
+.mdl-btn {
+    background: hsl(218, 41%, 15%) !important;
+    color: white !important;
+    border: 1px solid white !important;
+    border-radius: 2rem !important;
+}

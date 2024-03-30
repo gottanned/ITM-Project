@@ -45,7 +45,7 @@ const RemoveModal = (e) => {
         <div className="modal-footer">
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary mdl-btn"
             data-bs-dismiss="modal"
           >
             Cancel

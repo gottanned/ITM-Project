@@ -30,7 +30,7 @@ router.post(
   "/auth/signup",
   [checkDuplicateUsernameOrEmail, checkRolesExisted],
   (req, res) => {
-    giftcardController.listGiftcards(req, res);
+    authController.signup(req, res);
   }
 );
 
