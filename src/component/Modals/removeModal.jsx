@@ -1,12 +1,33 @@
 import { useState } from "react";
+import cookies from "js-cookie";
+import "./modal.css";
+import { Toaster, toast } from "react-hot-toast";
 const RemoveModal = (e) => {
   const [barcode, setBarcode] = useState("");
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(barcode);
+    const response = await fetch("/.netlify/functions/api/user/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": cookies.get("accessToken"),
+      },
+      body: JSON.stringify({
+        barcode: barcode,
+      }),
+    });
+    const data = await response.json();
+    if (data.message === "Giftcard deleted successfully!") {
+      toast.success(data.message);
+      window.location.href = "/dashboard";
+    } else {
+      console.log(data.message);
+      toast.error(data.message);
+    }
   };
   return (
     <div className="modal-dialog text-white">
+      <Toaster />
       <div className="modal-content mdl">
         <div className="modal-body">
           <form id="loginForm" onSubmit={handleOnSubmit}>

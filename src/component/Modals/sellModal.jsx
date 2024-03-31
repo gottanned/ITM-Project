@@ -9,7 +9,7 @@ const SellModal = (e) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("/.netlify/functions/api/user/sell", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "x-access-token": cookies.get("accessToken"),

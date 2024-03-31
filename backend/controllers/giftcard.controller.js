@@ -123,7 +123,7 @@ exports.deleteGiftcard = (req, res) => {
       (giftCard) => giftCard.barcode === req.body.barcode
     );
     if (!giftCard) {
-      res.status(403).send({ message: "Invalid Giftcard!" });
+      res.status(403).send({ message: "Giftcard not found!" });
       return;
     }
     User.updateOne(
