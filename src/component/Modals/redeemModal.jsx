@@ -1,23 +1,76 @@
+const RedeemModal = ({ holder, handleClose }) => {
+  console.log(holder);
+  return (
+    <div className="modal fade">
+      <div className="modal-dialog text-white">
+        <div className="modal-content mdl">
+          <div className="modal-body">
+            <form id="loginForm">
+              <div className="form-outline mb-4">
+                <label
+                  className="display-5 fw-bold "
+                  for="loginForm"
+                  style={{ color: "hsla(0, 100%, 65%, 0.606)" }}
+                >
+                  Remove
+                </label>
+              </div>
+              <div className="form-outline mb-4">
+                <input
+                  type="number"
+                  id="barcode"
+                  className="form-control"
+                  placeholder="numbers only..."
+                />
+                <label className="form-label" for="barcode">
+                  Barcode to be removed
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-primary bg-transparent btn-block mb-4"
+                style={{ width: "100%" }}
+              >
+                Proceed
+              </button>
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary mdl-btn"
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default RedeemModal;
+
+/*
 import { useState } from "react";
-const EditModal = (e) => {
+const RedeemModal = ({ holder }) => {
+  console.log(holder);
   const [barcode, setBarcode] = useState("");
   const [amount, setAmount] = useState("");
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    console.log(barcode, amount);
-  };
   return (
     <div
       className="modal fade"
-      id="editModal"
+      id="redeemModal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+      aria-labelledby="redeemModal"
+      data-backdrop="static"
     >
       <div className="modal-dialog text-white">
         <div className="modal-content mdl">
           <div className="modal-body">
-            <form id="loginForm" onSubmit={handleOnSubmit}>
+            <form id="loginForm">
               <div className="form-outline mb-4">
                 <label className="display-5 fw-bold" for="loginForm">
                   Edit
@@ -58,7 +111,6 @@ const EditModal = (e) => {
                 type="submit"
                 className="btn btn-primary bg-transparent btn-block mb-4"
                 style={{ width: "100%" }}
-                handleOnSubmit={handleOnSubmit}
               >
                 Proceed
               </button>
@@ -79,4 +131,5 @@ const EditModal = (e) => {
   );
 };
 
-export default EditModal;
+export default RedeemModal;
+*/

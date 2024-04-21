@@ -3,11 +3,16 @@ import HolderCard from "../../component/holderCard/holderCard";
 import SellModal from "../../component/Modals/sellModal";
 import EditModal from "../../component/Modals/editModal";
 import RemoveModal from "../../component/Modals/removeModal";
+import RedeemModal from "../../component/Modals/redeemModal";
+import GeneralModal from "../../component/Modals/generalModal";
 require("./dashboard.css");
 const cookies = require("js-cookie");
 
+//nested modal inide card component
+
 const Dashboard = () => {
   const [giftcards, setGiftcards] = useState([]);
+  const [selectedGiftcard, setSelectedGiftcard] = useState({});
   useEffect(() => {
     fetch("/.netlify/functions/api/auth/dashboard", {
       method: "GET",
@@ -19,79 +24,48 @@ const Dashboard = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setGiftcards(data);
+        setGiftcards(data.reverse());
       });
   }, []);
+
   return (
     <section className="main">
       <div className="container-fluid">
-        <h1 className="text-center text-white py-4">Dashboard</h1>
-        <div className="row row-cols-3 justify-content-center">
-          <div className="col-md-3 py-4 px-4  d-flex justify-content-center">
-            <div
-              className="card panel-command bg-transparent border-light text-white"
-              data-bs-toggle="modal"
-              data-bs-target="#removeModal"
-            >
-              <h3>Remove</h3>
-            </div>
+        <div className="row justify-content-center align-items-center">
+          <div className="col flex"> </div>
+          <h1 className="col  text-center text-white py-4">Welcome!</h1>
+          <div className="col ">
+            <div className=" col btn btn-primary ">Sign out</div>
           </div>
-          <div className="col-md-3 py-4 px-4 d-flex justify-content-center">
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-3  ">
             <div
               className="card panel-command bg-transparent border-light text-white"
               data-bs-toggle="modal"
-              data-bs-target="#sellModal"
+              data-bs-target="#generalModal"
             >
-              <h3>Register</h3>
-            </div>
-          </div>
-          <div className="col-md-3 py-4 px-4 d-flex justify-content-center">
-            <div
-              className="card panel-command bg-transparent border-light text-white"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-            >
-              <h3>Edit</h3>
+              <h3>Scan</h3>
             </div>
           </div>
         </div>
-        <div className="row row-cols-xs-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 ">
+        <div className="row row-cols-xs-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
           {giftcards.map((holder) => {
             return (
               <div className="col p-4">
-                <HolderCard holder={holder} />
+                <div key={holder.barcode}>
+                  <HolderCard holder={holder} />
+                </div>
               </div>
             );
           })}
         </div>
       </div>
-      <div
-        className="modal fade"
-        id="sellModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <SellModal />
-      </div>
-      <div
-        className="modal fade"
-        id="editModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <EditModal />
-      </div>
-      <div
-        className="modal fade"
-        id="removeModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <RemoveModal />
-      </div>
+
+      <SellModal />
+      <EditModal />
+      <RemoveModal />
+      <GeneralModal />
     </section>
   );
 };

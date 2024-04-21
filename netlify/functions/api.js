@@ -38,7 +38,11 @@ router.get("/auth/dashboard", [authJwt.verifyToken], (req, res) => {
   giftcardController.listGiftcards(req, res);
 });
 
-router.put("/user/sell", [authJwt.verifyToken], (req, res) => {
+router.post("/user/verify", [authJwt.verifyToken], (req, res) => {
+  giftcardController.verifyGiftcard(req, res);
+});
+
+router.post("/user/sell", [authJwt.verifyToken], (req, res) => {
   giftcardController.registerGiftcard(req, res);
 });
 
@@ -47,6 +51,14 @@ router.delete(
   [authJwt.verifyToken],
   giftcardController.deleteGiftcard
 );
+
+router.put("/user/redeem", [authJwt.verifyToken], (req, res) => {
+  giftcardController.redeemGiftcard(req, res);
+});
+
+router.put("/user/edit", [authJwt.verifyToken], (req, res) => {
+  giftcardController.editGiftcard(req, res);
+});
 
 app.use(express.json());
 app.use("/.netlify/functions/api", router);

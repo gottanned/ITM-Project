@@ -2,6 +2,23 @@ const db = require("../models");
 const User = db.user;
 const Giftcard = db.giftcard;
 
+exports.verifyGiftcard = (req, res, next) => {
+  User.findById(req.userId).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    const giftCard = user.giftCards.find(
+      (giftCard) => giftCard.barcode === req.body.barcode
+    );
+    if (!giftCard) {
+      res.status(403).send({ message: "Gitfcard has not yet registered!" });
+      return;
+    }
+    res.status(200).send(JSON.stringify(giftCard));
+  });
+};
+
 exports.registerGiftcard = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
@@ -66,22 +83,28 @@ exports.redeemGiftcard = (req, res) => {
       res.status(403).send({ message: "Insufficient Balance!" });
       return;
     }
-    User.updateOne(
+    User.findOneAndUpdate(
       { _id: req.userId, "giftCards.barcode": req.body.barcode },
-      { $inc: { "giftCards.$.amount": -req.body.redeemAmount } },
-      { $set: { "giftCards.$.updatedAt": Date.now() } },
+
+      {
+        $inc: { "giftCards.$.amount": -req.body.redeemAmount },
+        $set: { "giftCards.$.updatedAt": Date.now() },
+      },
+
       (err, user) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
         }
-        res.status(200).send({ message: "Giftcard redeemed successfully!" });
+        res.status(200).send({
+          message: "Giftcard redeemed successfully!",
+        });
       }
     );
   });
 };
 
-exports.updateGiftcard = (req, res) => {
+exports.editGiftcard = (req, res) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -107,7 +130,9 @@ exports.updateGiftcard = (req, res) => {
           res.status(500).send({ message: err });
           return;
         }
-        res.status(200).send({ message: "Giftcard updated successfully!" });
+        res.status(200).send({
+          message: "Giftcard updated successfully!",
+        });
       }
     );
   });

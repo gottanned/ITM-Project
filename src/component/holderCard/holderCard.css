@@ -1,8 +1,7 @@
-.holder:hover {
-    transform: scale(1.1);
-}
+
 
 .holder {
     transition: .3s;
     max-width: 450px;
+    border-radius: 2rem !important;
 }
