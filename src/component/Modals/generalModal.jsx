@@ -1,6 +1,5 @@
 import { useState } from "react";
 import HolderCard from "../holderCard/holderCard";
-import { set } from "mongoose";
 import { Toaster, toast } from "react-hot-toast";
 const cookies = require("js-cookie");
 
@@ -94,6 +93,25 @@ const GernalModal = () => {
       .then((data) => {
         if (data.message === "Giftcard redeemed successfully!") {
           toast.success(data.message);
+          fetch("/.netlify/functions/api/user/verify", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${cookies.get("accessToken")}`,
+            },
+            body: JSON.stringify({
+              barcode: selectedGiftcard.barcode,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              setSelectedGiftcard({
+                barcode: data.barcode,
+                amount: data.amount,
+                updatedAt: data.updatedAt,
+                createdAt: data.createdAt,
+              });
+            });
         } else {
           toast.error(data.message);
         }
@@ -116,6 +134,25 @@ const GernalModal = () => {
       .then((data) => {
         if (data.message === "Giftcard updated successfully!") {
           toast.success(data.message);
+          fetch("/.netlify/functions/api/user/verify", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": `${cookies.get("accessToken")}`,
+            },
+            body: JSON.stringify({
+              barcode: selectedGiftcard.barcode,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              setSelectedGiftcard({
+                barcode: data.barcode,
+                amount: data.amount,
+                updatedAt: data.updatedAt,
+                createdAt: data.createdAt,
+              });
+            });
         } else {
           toast.error(data.message);
         }
@@ -149,20 +186,20 @@ const GernalModal = () => {
     <div
       className="modal fade"
       id="generalModal"
-      tabindex="-1"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog text-white">
+      <div className="modal-dialog modal-dialog-centered text-white">
         <div className="modal-content mdl">
           <div className="modal-header">
-            <Toaster />
             <h3 className="modal-title fw-bold" id="exampleModalLabel">
               General
             </h3>
             <button
               type="button"
-              className="btn-close"
+              className="btn-close btn-close-white"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
@@ -172,7 +209,7 @@ const GernalModal = () => {
               <div className="input-group mb-4">
                 <input
                   type="number"
-                  className="form-control"
+                  className="form-control "
                   placeholder="Barcode"
                   onChange={(e) => setBarcode(e.target.value)}
                 />

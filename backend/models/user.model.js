@@ -20,6 +20,15 @@ const User = mongoose.model(
         updatedAt: Date,
       },
     ],
+    transactions: [
+      {
+        barcode: String,
+        transactions_type: String,
+        createdAt: Date,
+        initialAmount: Number,
+        afterAmount: Number,
+      },
+    ],
   })
 );
 

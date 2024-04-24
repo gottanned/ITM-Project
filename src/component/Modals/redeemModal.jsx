@@ -1,5 +1,4 @@
-const RedeemModal = ({ holder, handleClose }) => {
-  console.log(holder);
+const RedeemModal = () => {
   return (
     <div className="modal fade">
       <div className="modal-dialog text-white">
@@ -37,11 +36,7 @@ const RedeemModal = ({ holder, handleClose }) => {
             </form>
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary mdl-btn"
-              onClick={handleClose}
-            >
+            <button type="button" className="btn btn-secondary mdl-btn">
               Cancel
             </button>
           </div>

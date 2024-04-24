@@ -5,6 +5,8 @@ import EditModal from "../../component/Modals/editModal";
 import RemoveModal from "../../component/Modals/removeModal";
 import RedeemModal from "../../component/Modals/redeemModal";
 import GeneralModal from "../../component/Modals/generalModal";
+import TransactionsModal from "../../component/Modals/transactionsModal";
+
 require("./dashboard.css");
 const cookies = require("js-cookie");
 
@@ -38,6 +40,13 @@ const Dashboard = () => {
             <div className=" col btn btn-primary ">Sign out</div>
           </div>
         </div>
+        <div
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#transactionsModal"
+        >
+          Transactions Log
+        </div>
         <div className="row justify-content-center">
           <div className="col-md-3  ">
             <div
@@ -49,22 +58,18 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="row row-cols-xs-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
+        <div className="row row-cols row-cols-sm-2 row-cols-lg-4 row-cols-xl-5 ">
           {giftcards.map((holder) => {
             return (
               <div className="col p-4">
-                <div key={holder.barcode}>
-                  <HolderCard holder={holder} />
-                </div>
+                <HolderCard holder={holder} key={holder.barcode} />
               </div>
             );
           })}
         </div>
       </div>
 
-      <SellModal />
-      <EditModal />
-      <RemoveModal />
+      <TransactionsModal />
       <GeneralModal />
     </section>
   );

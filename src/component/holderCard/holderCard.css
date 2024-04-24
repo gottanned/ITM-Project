@@ -5,3 +5,7 @@
     max-width: 450px;
     border-radius: 2rem !important;
 }
+
+#actionsOnCard.form-control::placeholder{
+    color: white
+}

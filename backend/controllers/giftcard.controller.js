@@ -41,6 +41,13 @@ exports.registerGiftcard = (req, res, next) => {
             createdAt: Date.now(),
             updatedAt: Date.now(),
           },
+          transactions: {
+            barcode: req.body.barcode,
+            transactions_type: "Register",
+            createdAt: Date.now(),
+            initialAmount: req.body.amount,
+            afterAmount: req.body.amount,
+          },
         },
       },
       (err, user) => {
@@ -89,6 +96,15 @@ exports.redeemGiftcard = (req, res) => {
       {
         $inc: { "giftCards.$.amount": -req.body.redeemAmount },
         $set: { "giftCards.$.updatedAt": Date.now() },
+        $push: {
+          transactions: {
+            barcode: req.body.barcode,
+            transactions_type: "Redeem",
+            createdAt: Date.now(),
+            initialAmount: giftCard.amount,
+            afterAmount: giftCard.amount - req.body.redeemAmount,
+          },
+        },
       },
 
       (err, user) => {
@@ -123,6 +139,15 @@ exports.editGiftcard = (req, res) => {
         $set: {
           "giftCards.$.amount": req.body.amount,
           "giftCards.$.updatedAt": Date.now(),
+        },
+        $push: {
+          transactions: {
+            barcode: req.body.barcode,
+            transactions_type: "Edit",
+            createdAt: Date.now(),
+            initialAmount: giftCard.amount,
+            afterAmount: req.body.amount,
+          },
         },
       },
       (err, user) => {
@@ -163,4 +188,16 @@ exports.deleteGiftcard = (req, res) => {
       }
     );
   });
+};
+
+exports.listTransactions = (req, res) => {
+  User.findById(req.userId)
+    .populate("transactions")
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      res.status(200).send(JSON.stringify(user.transactions));
+    });
 };

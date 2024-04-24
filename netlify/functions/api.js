@@ -60,6 +60,10 @@ router.put("/user/edit", [authJwt.verifyToken], (req, res) => {
   giftcardController.editGiftcard(req, res);
 });
 
+router.get("/user/listTransactions", [authJwt.verifyToken], (req, res) => {
+  giftcardController.listTransactions(req, res);
+});
+
 app.use(express.json());
 app.use("/.netlify/functions/api", router);
 
