@@ -17,6 +17,11 @@ const HolderCard = ({ holder }) => {
   };
 
   const handleOnRedeem = async () => {
+    if (amount === "") {
+      toast.error("Please enter an amount to redeem!");
+      return;
+    }
+
     fetch("/.netlify/functions/api/user/redeem", {
       method: "PUT",
       headers: {
@@ -58,6 +63,10 @@ const HolderCard = ({ holder }) => {
   };
 
   const handleOnEdit = async () => {
+    if (amount === "") {
+      toast.error("Please enter an amount to set!");
+      return;
+    }
     fetch(`/.netlify/functions/api/user/edit`, {
       method: "PUT",
       headers: {
@@ -99,7 +108,7 @@ const HolderCard = ({ holder }) => {
   };
 
   return (
-    <div className="card holder bg-dark bg-transparent text-white border-light">
+    <div className="card holder bg-transparent text-white border-light">
       <Toaster />
       <h4 className="card-header border-light text-center">
         {holder.barcode ? holder.barcode : "None"}

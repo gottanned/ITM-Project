@@ -15,7 +15,16 @@ const cookies = require("js-cookie");
 const Dashboard = () => {
   const [giftcards, setGiftcards] = useState([]);
   const [selectedGiftcard, setSelectedGiftcard] = useState({});
+  const handleLogout = () => {
+    cookies.remove("accessToken");
+    window.location.href = "/";
+  };
+
   useEffect(() => {
+    if (!cookies.get("accessToken")) {
+      window.location.href = "/";
+    }
+
     fetch("/.netlify/functions/api/auth/dashboard", {
       method: "GET",
       headers: {
@@ -32,30 +41,37 @@ const Dashboard = () => {
 
   return (
     <section className="main">
-      <div className="container-fluid">
-        <div className="row justify-content-center align-items-center">
-          <div className="col flex"> </div>
-          <h1 className="col  text-center text-white py-4">Welcome!</h1>
-          <div className="col ">
-            <div className=" col btn btn-primary ">Sign out</div>
+      <div className="container-fluid m-2">
+        <h1 className="text-white text-center mt-3">
+          Welcome, {cookies.get("username")}!
+        </h1>
+        <div className="row justify-content-center">
+          <div
+            className="card panel-command bg-transparent border-light text-white m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#generalModal"
+            style={{
+              maxWidth: "25rem",
+            }}
+          >
+            <h3>Scan</h3>
           </div>
         </div>
-        <div
-          className="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#transactionsModal"
-        >
-          Transactions Log
-        </div>
-        <div className="row justify-content-center">
-          <div className="col-md-3  ">
-            <div
-              className="card panel-command bg-transparent border-light text-white"
-              data-bs-toggle="modal"
-              data-bs-target="#generalModal"
-            >
-              <h3>Scan</h3>
-            </div>
+        <div className="row justify-content-center m-0">
+          <div
+            className="col btn btn-primary m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#transactionsModal"
+            style={{ maxWidth: "10rem" }}
+          >
+            Transactions Log
+          </div>
+          <div
+            className="col btn btn-warning m-2 "
+            onClick={handleLogout}
+            style={{ maxWidth: "10rem" }}
+          >
+            Sign out
           </div>
         </div>
         <div className="row row-cols row-cols-sm-2 row-cols-lg-4 row-cols-xl-5 ">

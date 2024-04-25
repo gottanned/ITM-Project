@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import HolderCard from "../holderCard/holderCard";
 import { Toaster, toast } from "react-hot-toast";
 const cookies = require("js-cookie");
@@ -13,6 +13,7 @@ const GernalModal = () => {
     updatedAt: "",
     createdAt: "",
   });
+  const inputRef = useRef(null);
 
   const convertDate = (date) => {
     return new Date(date).toDateString();
@@ -182,6 +183,48 @@ const GernalModal = () => {
     setUnknownGiftcard(false);
   };
 
+  useEffect(() => {
+    const modalElement = document.getElementById("generalModal");
+    modalElement.addEventListener("hidden.bs.modal", () => {
+      setSelectedGiftcard({
+        barcode: "",
+        amount: "",
+        updatedAt: "",
+        createdAt: "",
+      });
+      setBarcode("");
+      setAmount("");
+      setUnknownGiftcard(false);
+      inputRef.current.value = "";
+    });
+    return () => {
+      modalElement.removeEventListener("hidden.bs.modal", () => {
+        setSelectedGiftcard({
+          barcode: "",
+          amount: "",
+          updatedAt: "",
+          createdAt: "",
+        });
+        setBarcode("");
+        setAmount("");
+        setUnknownGiftcard(false);
+        inputRef.current.value = "";
+      });
+    };
+  }, []);
+  useEffect(() => {
+    const handleModalShown = () => {
+      inputRef.current.focus();
+    };
+
+    const modalElement = document.getElementById("generalModal"); // Replace 'myModal' with the ID of your modal
+    modalElement.addEventListener("shown.bs.modal", handleModalShown);
+
+    return () => {
+      modalElement.removeEventListener("shown.bs.modal", handleModalShown);
+    };
+  }, []);
+
   return (
     <div
       className="modal fade"
@@ -211,6 +254,7 @@ const GernalModal = () => {
                   type="number"
                   className="form-control "
                   placeholder="Barcode"
+                  ref={inputRef}
                   onChange={(e) => setBarcode(e.target.value)}
                 />
               </div>

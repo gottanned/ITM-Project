@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import cookies from "js-cookie";
+
 const TransactionsModal = () => {
   const [transactions, setTransactions] = useState([]);
+
   const convertDate = (date) => {
     return new Date(date).toDateString();
   };
@@ -49,35 +51,37 @@ const TransactionsModal = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
-              <table className="table table-dark table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Barcode</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Before Amount</th>
-                    <th scope="col">After Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transactions.map((transaction) => (
+            <div className="modal-body p-0 m-0">
+              <div className="container-fluid" style={{ overflow: "hidden" }}>
+                <table className="table table-dark table-striped m-0 p-0">
+                  <thead>
                     <tr>
-                      <td>{transaction.barcode}</td>
-                      <td>{convertDate(transaction.createdAt)}</td>
-                      <td
-                        style={{
-                          color: getColor(transaction.transactions_type),
-                        }}
-                      >
-                        {transaction.transactions_type}
-                      </td>
-                      <td>{transaction.initialAmount}</td>
-                      <td>{transaction.afterAmount}</td>
+                      <th scope="col">Barcode</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Before Amount</th>
+                      <th scope="col">After Amount</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {transactions.map((transaction) => (
+                      <tr>
+                        <td>{transaction.barcode}</td>
+                        <td>{convertDate(transaction.createdAt)}</td>
+                        <td
+                          style={{
+                            color: getColor(transaction.transactions_type),
+                          }}
+                        >
+                          {transaction.transactions_type}
+                        </td>
+                        <td>{transaction.initialAmount}</td>
+                        <td>{transaction.afterAmount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

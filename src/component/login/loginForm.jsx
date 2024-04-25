@@ -20,6 +20,7 @@ const LoginForm = () => {
     console.log(data);
     if (data.accessToken) {
       cookies.set("accessToken", data.accessToken);
+      cookies.set("username", data.username);
       toast.success("User was logged in successfully!");
       window.location.href = "/dashboard";
     } else {
