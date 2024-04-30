@@ -1,5 +1,6 @@
 const config = require("../config/auth.config");
 const db = require("../models");
+const nodemailer = require("nodemailer");
 const User = db.user;
 const Role = db.role;
 
@@ -101,4 +102,59 @@ exports.signin = (req, res) => {
         accessToken: token,
       });
     });
+};
+
+exports.sendOTP = (req, res) => {
+  console.log("sendOTP");
+  User.findOne({
+    email: req.body.email,
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (!user) {
+      return res.status(404).send({ message: "User Not found." });
+    }
+    var otp = Math.floor(1000 + Math.random() * 9000);
+    user.otp = otp;
+    var date = new Date();
+    user.otpExpiration = date.setMinutes(date.getMinutes() + 10);
+    user.save((err) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+
+      var transporter = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "giftcardservice.beta@gmail.com",
+          pass: "wper jnrc uesl sqau",
+        },
+      });
+
+      var mailOptions = {
+        from: "giftcardservice.beta@gmail.com",
+        to: req.body.email,
+        subject: "OTP for password reset",
+        text: `Your OTP is ${otp}, and it is valid for 10 minutes, at ${date}`,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+          res.status(500).send({ message: error });
+          return;
+        } else {
+          console.log("Email sent to : " + info.response);
+        }
+      });
+
+      res.status(200).send({ message: "OTP sent successfully!" });
+    });
+  });
 };

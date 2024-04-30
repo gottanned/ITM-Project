@@ -212,6 +212,7 @@ const GernalModal = () => {
       });
     };
   }, []);
+
   useEffect(() => {
     const handleModalShown = () => {
       inputRef.current.focus();
@@ -219,7 +220,6 @@ const GernalModal = () => {
 
     const modalElement = document.getElementById("generalModal"); // Replace 'myModal' with the ID of your modal
     modalElement.addEventListener("shown.bs.modal", handleModalShown);
-
     return () => {
       modalElement.removeEventListener("shown.bs.modal", handleModalShown);
     };

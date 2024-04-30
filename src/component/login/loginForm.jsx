@@ -52,14 +52,6 @@ const LoginForm = () => {
               you for using our platform and your data will always be safe with
               us.
             </p>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
-              Launch demo modal
-            </button>
           </div>
 
           <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
@@ -110,7 +102,7 @@ const LoginForm = () => {
                       Not a member? <a href="/signup">Sign up</a>
                     </div>
                     <div>
-                      <a href="/forgot-password">Forgot password?</a>
+                      <a href="/reset-password">Forgot password?</a>
                     </div>
                   </div>
 

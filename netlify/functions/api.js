@@ -64,6 +64,10 @@ router.get("/user/listTransactions", [authJwt.verifyToken], (req, res) => {
   giftcardController.listTransactions(req, res);
 });
 
+router.post("/auth/sendOTP", (req, res) => {
+  authController.sendOTP(req, res);
+});
+
 app.use(express.json());
 app.use("/.netlify/functions/api", router);
 

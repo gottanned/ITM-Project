@@ -29,6 +29,14 @@ const User = mongoose.model(
         afterAmount: Number,
       },
     ],
+    otp: {
+      type: String,
+      default: "",
+    },
+    otpExpires: {
+      type: Date,
+      default: Date.now(),
+    },
   })
 );
 

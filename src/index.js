@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.js";
 import Dashboard from "./page/dashboard/dashboard.jsx";
 import SignUp from "./page/signup/signup.jsx";
+import ResetPassword from "./page/reset-password/resetPassword.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import "bootstrap/dist/js/bootstrap.js";
 import "bootstrap/dist/css/bootstrap.css";
@@ -18,6 +19,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </Router>
   </React.StrictMode>
