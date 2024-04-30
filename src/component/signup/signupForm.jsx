@@ -22,8 +22,8 @@ const SignupForm = () => {
     });
     const data = await response.json();
     console.log(data);
-    if (data.message === "User was registered successfully!") {
-      toast.success("User was registered successfully!");
+    if (response.status === 200) {
+      toast.success(data.message);
       window.location.href = "/";
     } else {
       toast.error(data.message);

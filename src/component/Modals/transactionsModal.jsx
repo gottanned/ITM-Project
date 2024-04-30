@@ -16,6 +16,17 @@ const TransactionsModal = () => {
       return "yellow";
     }
   };
+  const handleRefresh = () => {
+    fetch("/.netlify/functions/api/user/listTransactions", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": `${cookies.get("accessToken")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setTransactions(data.reverse()));
+  };
   useEffect(() => {
     fetch("/.netlify/functions/api/user/listTransactions", {
       method: "GET",
@@ -53,6 +64,13 @@ const TransactionsModal = () => {
             </div>
             <div className="modal-body p-0 m-0">
               <div className="container-fluid" style={{ overflow: "hidden" }}>
+                <button
+                  type="button"
+                  className="btn btn-primary my-2"
+                  onClick={handleRefresh}
+                >
+                  Refresh
+                </button>
                 <table className="table table-dark table-striped m-0 p-0">
                   <thead>
                     <tr>

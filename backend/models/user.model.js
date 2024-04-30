@@ -35,7 +35,6 @@ const User = mongoose.model(
     },
     otpExpires: {
       type: Date,
-      default: Date.now(),
     },
   })
 );

@@ -68,6 +68,14 @@ router.post("/auth/sendOTP", (req, res) => {
   authController.sendOTP(req, res);
 });
 
+router.post("/auth/verifyOTP", (req, res) => {
+  authController.verifyOTP(req, res);
+});
+
+router.post("/auth/resetPassword", (req, res) => {
+  authController.resetPassword(req, res);
+});
+
 app.use(express.json());
 app.use("/.netlify/functions/api", router);
 

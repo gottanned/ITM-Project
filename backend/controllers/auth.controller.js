@@ -52,7 +52,35 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err });
             return;
           }
-          res.send({ message: "User was registered successfully!" });
+          var transporter = nodemailer.createTransport({
+            service: "Gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+              user: "giftcardservice.beta@gmail.com",
+              pass: "wper jnrc uesl sqau",
+            },
+          });
+
+          var mailOptions = {
+            from: "giftcardservice.beta@gmail.com",
+            to: req.body.email,
+            subject: "Welcome to Giftcard Service!",
+            text: `Congratulations! You have successfully registered to Giftcard Service. You can now start selling your giftcards.`,
+          };
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+              res.status(200).send({
+                message:
+                  "User was registered successfully and a confirmation was sent to your email!",
+              });
+            }
+          });
         });
       });
     }
@@ -119,7 +147,8 @@ exports.sendOTP = (req, res) => {
     var otp = Math.floor(1000 + Math.random() * 9000);
     user.otp = otp;
     var date = new Date();
-    user.otpExpiration = date.setMinutes(date.getMinutes() + 10);
+    user.otpExpires = date.setMinutes(date.getMinutes() + 10);
+
     user.save((err) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -141,7 +170,7 @@ exports.sendOTP = (req, res) => {
         from: "giftcardservice.beta@gmail.com",
         to: req.body.email,
         subject: "OTP for password reset",
-        text: `Your OTP is ${otp}, and it is valid for 10 minutes, at ${date}`,
+        text: `Your OTP is ${otp}, and it is valid for 10 minutes, at ${date}, and current date is ${new Date()}`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -154,5 +183,63 @@ exports.sendOTP = (req, res) => {
         }
       });
     });
+  });
+};
+
+exports.verifyOTP = (req, res) => {
+  console.log("verifyOTP");
+  User.findOne({
+    email: req.body.email,
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    var currentOTP = user.otp;
+    var currOTPexp = user.otpExpires;
+    var date = new Date();
+    console.log(req.body.otp, currentOTP, currOTPexp, date);
+    if (currentOTP === req.body.otp && currOTPexp > date) {
+      res.status(200).send({ message: "OTP verified successfully!" });
+    } else if (currOTPexp < date) {
+      res.status(403).send({ message: "OTP expired!" });
+    } else {
+      res.status(403).send({ message: "Invalid OTP!" });
+    }
+  });
+};
+
+exports.resetPassword = (req, res) => {
+  User.findOne({
+    email: req.body.email,
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (req.body.password !== req.body.confirmPassword) {
+      res.status(403).send({ message: "Passwords do not match!" });
+      return;
+    }
+    var currentOTP = user.otp;
+    var currOTPexp = user.otpExpires;
+    var date = new Date();
+    console.log(req.body.otp, currentOTP, currOTPexp, date);
+    if (currentOTP === req.body.otp && currOTPexp > date) {
+      user.password = bcrypt.hashSync(req.body.password, 8);
+      user.otp = "";
+      user.otpExpires = null;
+      user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        res.status(200).send({ message: "Password reset successfully!" });
+      });
+    } else if (currOTPexp < date) {
+      res.status(403).send({ message: "OTP expired!" });
+    } else {
+      res.status(403).send({ message: "Invalid OTP!" });
+    }
   });
 };
