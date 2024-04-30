@@ -74,10 +74,10 @@ const Dashboard = () => {
             Sign out
           </div>
         </div>
-        <div className="row row-cols row-cols-sm-2 row-cols-lg-4 row-cols-xl-5 ">
+        <div className="row row-cols row-cols-md-2 row-cols-lg-3 row-cols-xl-5 ">
           {giftcards.map((holder) => {
             return (
-              <div className="col p-4">
+              <div className="col-xs-6 col-sm-8 p-4 ">
                 <HolderCard holder={holder} key={holder.barcode} />
               </div>
             );
