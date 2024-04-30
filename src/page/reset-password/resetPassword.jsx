@@ -29,7 +29,7 @@ const ResetPassword = () => {
   return (
     <div className="w-full h-full background-radial-gradient-reset-password flex flex-col ">
       <div className="container d-flex justify-content-center align-items-center h-100">
-        <div className="card bg-glass" style={{ minWidth: "500px" }}>
+        <div className="card bg-glass" style={{ width: "auto" }}>
           <Toaster />
           <div className="card-body py-md-5 px-md-5">
             <form id="resetPasswordForm">
