@@ -22,6 +22,10 @@ const GernalModal = () => {
   const handleOnCheck = async (e) => {
     e.preventDefault();
     //Fetch GET cannot have body - try to add barcode to the URL
+    if (!barcode) {
+      toast.error("Barcode is required!");
+      return;
+    }
     fetch("/.netlify/functions/api/user/verify", {
       method: "POST",
       headers: {
@@ -56,6 +60,19 @@ const GernalModal = () => {
 
   const handleOnRegister = async (e) => {
     e.preventDefault();
+    if (!barcode) {
+      toast.error("Barcode is required!");
+      return;
+    }
+    if (!amount) {
+      toast.error("Amount is required!");
+      return;
+    }
+    if (amount <= 0) {
+      toast.error("Amount must be greater than 0!");
+      return;
+    }
+
     const response = await fetch("/.netlify/functions/api/user/sell", {
       method: "POST",
       headers: {
@@ -78,6 +95,11 @@ const GernalModal = () => {
   };
 
   const handleOnRedeem = async () => {
+    if (amount <= 0) {
+      toast.error("Amount must be greater than 0!");
+      return;
+    }
+
     console.log("amount", amount);
     fetch("/.netlify/functions/api/user/redeem", {
       method: "PUT",
@@ -120,6 +142,11 @@ const GernalModal = () => {
   };
 
   const handleOnEdit = async () => {
+    if (amount <= 0) {
+      toast.error("Amount must be greater than 0!");
+      return;
+    }
+
     fetch(`/.netlify/functions/api/user/edit`, {
       method: "PUT",
       headers: {
@@ -268,41 +295,9 @@ const GernalModal = () => {
             </form>
             {selectedGiftcard.barcode && (
               <div className="m-4">
+                <h2>Giftcard found!</h2>
                 <div className="row">
                   <HolderCard holder={selectedGiftcard} />
-                </div>
-                <div className="row m-2">
-                  <h2>Actions</h2>
-                </div>
-
-                <div className="input-group mb-4">
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Amount"
-                    onChange={(e) => {
-                      setAmount(e.target.value);
-                    }}
-                    style={{ marginRight: "10px", borderRadius: "2em" }}
-                  />
-                  <div className="input-group-append">
-                    <button
-                      className="btn btn-outline-secondary"
-                      type="button"
-                      onClick={handleOnRedeem}
-                      style={{ marginRight: "10px", borderRadius: "2em" }}
-                    >
-                      Redeem Amount
-                    </button>
-                    <button
-                      className="btn btn-outline-secondary"
-                      type="button"
-                      onClick={handleOnEdit}
-                      style={{ marginRight: "10px", borderRadius: "2em" }}
-                    >
-                      Edit to Amount
-                    </button>
-                  </div>
                 </div>
               </div>
             )}

@@ -133,6 +133,7 @@ exports.editGiftcard = (req, res) => {
       res.status(403).send({ message: "Invalid Giftcard!" });
       return;
     }
+
     User.updateOne(
       { _id: req.userId, "giftCards.barcode": req.body.barcode },
       {
